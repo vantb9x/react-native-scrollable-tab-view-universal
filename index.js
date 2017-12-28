@@ -57,28 +57,24 @@ const ScrollableTabView = createReactClass({
   getInitialState() {
     const containerWidth = Dimensions.get('window').width;
     let scrollValue;
-    let scrollXIOS;
-    let positionAndroid;
-    let offsetAndroid;
+    let scrollX;
 
-    scrollXIOS = new Animated.Value(this.props.initialPage * containerWidth);
+    scrollX = new Animated.Value(this.props.initialPage * containerWidth);
     const containerWidthAnimatedValue = new Animated.Value(containerWidth);
     // Need to call __makeNative manually to avoid a native animated bug. See
     // https://github.com/facebook/react-native/pull/14435
     containerWidthAnimatedValue.__makeNative();
-    scrollValue = Animated.divide(scrollXIOS, containerWidthAnimatedValue);
+    scrollValue = Animated.divide(scrollX, containerWidthAnimatedValue);
 
     const callListeners = this._polyfillAnimatedValue(scrollValue);
-    scrollXIOS.addListener(
+    scrollX.addListener(
       ({ value, }) => callListeners(value / this.state.containerWidth)
     );
 
     return {
       currentPage: this.props.initialPage,
       scrollValue,
-      scrollXIOS,
-      positionAndroid,
-      offsetAndroid,
+      scrollX,
       containerWidth,
       sceneKeys: this.newSceneKeys({ currentPage: this.props.initialPage, }),
     };
@@ -95,7 +91,7 @@ const ScrollableTabView = createReactClass({
   },
 
   componentWillUnmount() {
-    this.state.scrollXIOS.removeAllListeners();
+    this.state.scrollX.removeAllListeners();
   },
 
   goToPage(pageNumber) {
@@ -186,7 +182,7 @@ const ScrollableTabView = createReactClass({
       contentOffset={{ x: this.props.initialPage * this.state.containerWidth, }}
       ref={(scrollView) => { this.scrollView = scrollView; }}
       onScroll={Animated.event(
-        [{ nativeEvent: { contentOffset: { x: this.state.scrollXIOS, }, }, }, ],
+        [{ nativeEvent: { contentOffset: { x: this.state.scrollX, }, }, }, ],
         { useNativeDriver: true, listener: this._onScroll, }
       )}
       onMomentumScrollBegin={this._onMomentumScrollBeginAndEnd}
@@ -266,7 +262,7 @@ const ScrollableTabView = createReactClass({
     // Need to call __makeNative manually to avoid a native animated bug. See
     // https://github.com/facebook/react-native/pull/14435
     containerWidthAnimatedValue.__makeNative();
-    scrollValue = Animated.divide(this.state.scrollXIOS, containerWidthAnimatedValue);
+    scrollValue = Animated.divide(this.state.scrollX, containerWidthAnimatedValue);
     this.setState({ containerWidth: width, scrollValue, });
 
     this.requestAnimationFrame(() => {
@@ -324,9 +320,6 @@ module.exports = ScrollableTabView;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  scrollableContentAndroid: {
     flex: 1,
   },
 });
