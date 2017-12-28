@@ -1,6 +1,11 @@
+## Notes from Turfa
+I need `react-native-scrollable-tab-view` to be placed inside a ScrollView, for both iOS and Android (thus the name).
+It didn't work on Android because of ViewPagerAndroid. So, I modified the code and
+make the code the sama for both iOS and Android.
 
-## react-native-scrollable-tab-view
-[![npm version](https://badge.fury.io/js/react-native-scrollable-tab-view.svg)](https://badge.fury.io/js/react-native-scrollable-tab-view)
+
+## react-native-scrollable-tab-view-universal
+[![npm version](https://badge.fury.io/js/react-native-scrollable-tab-view-universal.svg)](https://badge.fury.io/js/react-native-scrollable-tab-view-universal)
 
 This is probably my favorite navigation pattern on Android, I wish it
 were more common on iOS! This is a very simple JavaScript-only
@@ -11,8 +16,8 @@ the animations behind this work, check out the Rebound section of the
 
 ## Add it to your project
 
-1. Run `npm install react-native-scrollable-tab-view --save`
-2. `var ScrollableTabView = require('react-native-scrollable-tab-view');`
+1. Run `npm install react-native-scrollable-tab-view-universal --save`
+2. `var ScrollableTabView = require('react-native-scrollable-tab-view-universal');`
 
 ## Demo
 <a href="https://appetize.io/embed/6qfv7eydjtm34mhn6qwj2nt3xm?embed=true&screenOnly=false&xdocMsg=true&debug=true&scale=100&deviceColor=black&orientation=portrait&device=iphone6s&osVersion=9.3&deviceId=RGV2aWNlOjU2Y2FjNTExZWQwOTM2MTEwMGRhYTNlNg&platform=ios&width=375&height=668&phoneWidth=416&phoneHeight=870&screenOffsetLeft=21&screenOffsetTop=100&params=%7B%7D" target="_blank"><strong>Run this example</strong></a>
